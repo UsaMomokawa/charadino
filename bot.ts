@@ -1,10 +1,13 @@
+import type { BotWithCache, BotWithHelpersPlugin } from "./deps.ts";
 import {
+  Collection,
   createBot,
   enableCachePlugin,
   enableHelpersPlugin,
   Intents,
 } from "./deps.ts";
-import { ENV } from "./src/utils/secret.ts";
+import type { Command } from "./src/types/commands.ts";
+import { ENV } from "./secret.ts";
 import { events } from "./src/events/mod.ts";
 
 const bot = createBot({
@@ -16,4 +19,9 @@ const bot = createBot({
 enableHelpersPlugin(bot);
 enableCachePlugin(bot);
 
-export const Bot = bot;
+export interface BotClient extends BotWithCache<BotWithHelpersPlugin> {
+  commands: Collection<string, Command>;
+}
+
+export const Bot = bot as BotClient;
+Bot.commands = new Collection();
