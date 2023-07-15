@@ -1,4 +1,4 @@
-import type { Condition, Result } from "../../types/check.ts";
+import type { Condition, Differential, Result } from "../../types/check.ts";
 import type { Skill } from "../../types/charaeno.ts";
 import type { InteractionDataOption } from "../../../deps.ts";
 import {
@@ -28,14 +28,16 @@ export function parseConditions(text: string): Condition[] {
 export function validateSkills(
   skills: Skill[],
   conditions: Condition[],
-): Result[] {
-  const results: Result[] = [];
+): [string[], Differential[]] {
+  const differentials: Differential[] = [];
+  const targetSkills: string[] = [];
 
   conditions.forEach((condition) => {
     const skill = skills.find((skill) => skill.name === condition.name);
     if (!skill) {
       return;
     }
+    targetSkills.push(skill.name);
 
     switch (condition.operator) {
       case ">=":
@@ -61,10 +63,11 @@ export function validateSkills(
       default:
         break;
     }
-    results.push({ "expected": condition, "actual": skill });
+
+    differentials.push({ "expected": condition, "actual": skill });
   });
 
-  return results;
+  return [targetSkills, differentials];
 }
 
 function parseOptions(options: InteractionDataOption[]): string[] {
@@ -77,12 +80,18 @@ function parseOptions(options: InteractionDataOption[]): string[] {
   return _options;
 }
 
-export async function check(options: InteractionDataOption[]) {
+export async function check(options: InteractionDataOption[]): Promise<Result> {
   const [conditionText, url] = parseOptions(options);
   const endpoint = buildCharaenoApiEndpointUrl(url);
   const skills = await fetchSkills(endpoint);
   const conditions = parseConditions(conditionText);
-  const results = validateSkills(skills, conditions);
+  const [targetSkills, differentials] = validateSkills(skills, conditions);
+  const result = {
+    "differentials": differentials,
+    "targetSkills": targetSkills,
+    "conditionsText": conditionText,
+    "url": url,
+  };
 
-  return results;
+  return result;
 }

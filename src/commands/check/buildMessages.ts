@@ -1,28 +1,38 @@
 import type { Result } from "../../types/check.ts";
 
-export function buildMessage(results: Result[]): string {
-  if (results.length === 0) {
-    return buildSuccessMessage();
+export function buildMessage(result: Result): string {
+  if (result.differentials.length === 0) {
+    return buildSuccessMessage(result);
   } else {
-    return buildFailureMessage(results);
+    return buildFailureMessage(result);
   }
 }
 
-function buildSuccessMessage(): string {
-  return "修正が必要な技能値はありませんでした :robot:";
+function buildSuccessMessage(result: Result): string {
+  let text = `「${
+    result.targetSkills.join(",")
+  }」の技能値をチェックしました :mag_right:\n`;
+  text += "修正が必要な技能値はありませんでした :robot:\n\n";
+  text += `[ 条件 ] ${result.conditionsText}\n`;
+  text += `[ url ] ${result.url}`;
+
+  return text;
 }
 
-function buildFailureMessage(results: Result[]): string {
-  let text = "修正が必要な技能値があります :bulb:\n";
-  text += `\`\`\`diff\n+条件\n`;
+function buildFailureMessage(result: Result): string {
+  let text = `「${
+    result.targetSkills.join(",")
+  }」の技能値をチェックしました :mag_right:\n`;
+  text += "修正が必要な技能値があります :bulb:\n";
+  text += `\`\`\`diff\n`;
 
-  results.forEach((result) => {
-    text += "\n";
-    text += `-${result.actual.name}: ${result.actual.value}\n`;
-    text +=
-      `+${result.expected.name}${result.expected.operator}${result.expected.value}\n`;
-  });
+  text += result.differentials.map((diff) => {
+    return `-${diff.actual.name}: ${diff.actual.value}\n+${diff.expected.name}${diff.expected.operator}${diff.expected.value}\n`;
+  }).join("\n");
 
-  text += "```";
+  text += "```\n";
+  text += `[ 条件 ] ${result.conditionsText}\n`;
+  text += `[ url ] ${result.url}`;
+
   return text;
 }
