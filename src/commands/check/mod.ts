@@ -1,7 +1,10 @@
 import type { Condition, Result } from "../../types/check.ts";
 import type { Skill } from "../../types/charaeno.ts";
 import type { InteractionDataOption } from "../../../deps.ts";
-import { buildCharaenoApiEndpointUrl, fetchSkills } from "../../utils/charaeno.ts";
+import {
+  buildCharaenoApiEndpointUrl,
+  fetchSkills,
+} from "../../utils/charaeno.ts";
 
 export function parseConditions(text: string): Condition[] {
   const conditions: Condition[] = [];
@@ -75,7 +78,7 @@ function parseOptions(options: InteractionDataOption[]): string[] {
 }
 
 export async function check(options: InteractionDataOption[]) {
-  const [ conditionText, url ] = parseOptions(options);
+  const [conditionText, url] = parseOptions(options);
   const endpoint = buildCharaenoApiEndpointUrl(url);
   const skills = await fetchSkills(endpoint);
   const conditions = parseConditions(conditionText);
