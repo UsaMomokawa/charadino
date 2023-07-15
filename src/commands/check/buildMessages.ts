@@ -1,10 +1,18 @@
 import type { Result } from "../../types/check.ts";
 
-export function buildSuccessMessage(): string {
+export function buildMessage(results: Result[]): string {
+  if (results.length === 0) {
+    return buildSuccessMessage();
+  } else {
+    return buildFailureMessage(results);
+  }
+}
+
+function buildSuccessMessage(): string {
   return "修正が必要な技能値はありませんでした :robot:";
 }
 
-export function buildFailureMessage(results: Result[]): string {
+function buildFailureMessage(results: Result[]): string {
   let text = "修正が必要な技能値があります :bulb:\n";
   text += `\`\`\`diff\n+条件\n`;
 

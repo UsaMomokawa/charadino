@@ -1,5 +1,7 @@
 import type { Condition, Result } from "../../types/check.ts";
 import type { Skill } from "../../types/charaeno.ts";
+import type { InteractionDataOption } from "../../../deps.ts";
+import { buildCharaenoApiEndpointUrl, fetchSkills } from "../../utils/charaeno.ts";
 
 export function parseConditions(text: string): Condition[] {
   const conditions: Condition[] = [];
@@ -58,6 +60,26 @@ export function validateSkills(
     }
     results.push({ "expected": condition, "actual": skill });
   });
+
+  return results;
+}
+
+function parseOptions(options: InteractionDataOption[]): string[] {
+  const _options: string[] = [];
+  options.forEach((option) => {
+    if (option.value) {
+      _options.push(option.value as string);
+    }
+  });
+  return _options;
+}
+
+export async function check(options: InteractionDataOption[]) {
+  const [ conditionText, url ] = parseOptions(options);
+  const endpoint = buildCharaenoApiEndpointUrl(url);
+  const skills = await fetchSkills(endpoint);
+  const conditions = parseConditions(conditionText);
+  const results = validateSkills(skills, conditions);
 
   return results;
 }
