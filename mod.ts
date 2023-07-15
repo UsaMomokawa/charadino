@@ -5,16 +5,17 @@ import {
   startBot,
 } from "./deps.ts";
 import { Bot } from "./bot.ts";
-import { ENV } from "./secret.ts";
+import { logger } from "./src/utils/logger.ts";
+import { ENV } from "./src/utils/secret.ts";
 
-console.log("Starting bot... 🚀");
+logger.info("Starting bot... 🚀");
 
 const paths = [
   "./src/events",
 ];
 await fastFileLoader(paths).catch((error) => {
-  console.error(`Unable to import ${paths}`);
-  console.error(error);
+  logger.fatal(`Unable to import ${paths}`);
+  logger.fatal(error);
   Deno.exit(1);
 });
 

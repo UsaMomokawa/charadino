@@ -4,7 +4,7 @@ import {
   enableHelpersPlugin,
   Intents,
 } from "./deps.ts";
-import { ENV } from "./secret.ts";
+import { ENV } from "./src/utils/secret.ts";
 import { events } from "./src/events/mod.ts";
 
 const bot = createBot({
