@@ -11,7 +11,7 @@ export async function updateApplicationCommands() {
   await Bot.helpers.upsertGuildApplicationCommands(
     ENV["DISCORD_GUILD_ID"],
     Bot.commands
-      .filter((command) => !!command.devOnly)
+      .filter((command) => !command.devOnly)
       .array(),
   );
 }
