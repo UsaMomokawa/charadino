@@ -5,15 +5,12 @@ import {
   Intents,
 } from "./deps.ts";
 import { ENV } from "./secret.ts";
+import { events } from "./src/events/mod.ts";
 
 const bot = createBot({
   token: ENV["DISCORD_BOT_TOKEN"],
   intents: Intents.GuildMessages | Intents.MessageContent,
-  events: {
-    ready: (_bot, payload) => {
-      console.log(`${payload.user.username} is ready!`);
-    },
-  },
+  events: events,
 });
 
 enableHelpersPlugin(bot);
