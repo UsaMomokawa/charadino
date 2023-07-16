@@ -6,13 +6,13 @@ export interface Condition {
   value: number;
 }
 
-export interface Differential {
+export interface Difference {
   expected: Condition;
   actual: Skill;
 }
 
 export interface Result {
-  differentials: Differential[];
+  differences: Difference[];
   targetSkills: string[];
   conditionsText: string;
   url: string;

@@ -26,7 +26,7 @@ Deno.test("Charaeno API エンドポイントを叩いて Skill の配列を返�
     ));
 
   try {
-    assertEquals(fetchSkills("dummyUrl"), expected);
+    assertEquals(fetchSkills("dummy-url"), expected);
     assertSpyCalls(fetchStub, 1);
   } finally {
     fetchStub.restore();

@@ -1,4 +1,4 @@
-import type { Condition, Differential, Result } from "../../types/check.ts";
+import type { Condition, Difference, Result } from "../../types/check.ts";
 import type { Skill } from "../../types/charaeno.ts";
 import type { InteractionDataOption } from "../../../deps.ts";
 import {
@@ -28,8 +28,8 @@ export function parseConditions(text: string): Condition[] {
 export function validateSkills(
   skills: Skill[],
   conditions: Condition[],
-): [string[], Differential[]] {
-  const differentials: Differential[] = [];
+): [string[], Difference[]] {
+  const differences: Difference[] = [];
   const targetSkills: string[] = [];
 
   conditions.forEach((condition) => {
@@ -64,10 +64,10 @@ export function validateSkills(
         break;
     }
 
-    differentials.push({ "expected": condition, "actual": skill });
+    differences.push({ "expected": condition, "actual": skill });
   });
 
-  return [targetSkills, differentials];
+  return [targetSkills, differences];
 }
 
 function parseOptions(options: InteractionDataOption[]): string[] {
@@ -85,9 +85,9 @@ export async function check(options: InteractionDataOption[]): Promise<Result> {
   const endpoint = buildCharaenoApiEndpointUrl(url);
   const skills = await fetchSkills(endpoint);
   const conditions = parseConditions(conditionText);
-  const [targetSkills, differentials] = validateSkills(skills, conditions);
+  const [targetSkills, differences] = validateSkills(skills, conditions);
   const result = {
-    "differentials": differentials,
+    "differences": differences,
     "targetSkills": targetSkills,
     "conditionsText": conditionText,
     "url": url,

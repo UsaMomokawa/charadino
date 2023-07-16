@@ -28,8 +28,8 @@ createCommand({
   ],
   execute: async (bot, interaction) => {
     const options = interaction.data!.options!;
-    const results = await check(options);
-    const message = buildMessage(results);
+    const result = await check(options);
+    const message = buildMessage(result);
 
     await bot.helpers.sendInteractionResponse(
       interaction.id,

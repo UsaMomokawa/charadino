@@ -1,5 +1,5 @@
 import { assertEquals } from "../../../deps.ts";
-import type { Differential } from "../../types/check.ts";
+import type { Difference } from "../../types/check.ts";
 import { parseConditions, validateSkills } from "./mod.ts";
 
 Deno.test("条件を満たす場合、空配列を返すこと", () => {
@@ -11,7 +11,7 @@ Deno.test("条件を満たす場合、空配列を返すこと", () => {
     { "name": "回避", "operator": ">=", "value": 30 },
     { "name": "応急手当", "operator": ">=", "value": 30 },
   ];
-  const expected: [string[], Differential[]]= [
+  const expected: [string[], Difference[]] = [
     ["回避", "応急手当"],
     [],
   ];

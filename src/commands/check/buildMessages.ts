@@ -1,7 +1,7 @@
 import type { Result } from "../../types/check.ts";
 
 export function buildMessage(result: Result): string {
-  if (result.differentials.length === 0) {
+  if (result.differences.length === 0) {
     return buildSuccessMessage(result);
   } else {
     return buildFailureMessage(result);
@@ -26,7 +26,7 @@ function buildFailureMessage(result: Result): string {
   text += "修正が必要な技能値があります :bulb:\n";
   text += `\`\`\`diff\n`;
 
-  text += result.differentials.map((diff) => {
+  text += result.differences.map((diff) => {
     return `-${diff.actual.name}: ${diff.actual.value}\n+${diff.expected.name}${diff.expected.operator}${diff.expected.value}\n`;
   }).join("\n");
 
