@@ -70,18 +70,12 @@ export function validateSkills(
   return [targetSkills, differences];
 }
 
-function parseOptions(options: InteractionDataOption[]): string[] {
-  const _options: string[] = [];
-  options.forEach((option) => {
-    if (option.value) {
-      _options.push(option.value as string);
-    }
-  });
-  return _options;
+export function getOptionValues(options: InteractionDataOption[]): string[] {
+  return options.map((option) => option.value as string);
 }
 
 export async function check(options: InteractionDataOption[]): Promise<Result> {
-  const [conditionsText, url] = parseOptions(options);
+  const [conditionsText, url] = getOptionValues(options);
   const endpoint = buildCharaenoApiEndpointUrl(url);
   const skills = await fetchSkills(endpoint);
   const conditions = parseConditions(conditionsText);
