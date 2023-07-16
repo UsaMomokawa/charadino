@@ -81,15 +81,15 @@ function parseOptions(options: InteractionDataOption[]): string[] {
 }
 
 export async function check(options: InteractionDataOption[]): Promise<Result> {
-  const [conditionText, url] = parseOptions(options);
+  const [conditionsText, url] = parseOptions(options);
   const endpoint = buildCharaenoApiEndpointUrl(url);
   const skills = await fetchSkills(endpoint);
-  const conditions = parseConditions(conditionText);
+  const conditions = parseConditions(conditionsText);
   const [targetSkills, differences] = validateSkills(skills, conditions);
   const result = {
     "differences": differences,
     "targetSkills": targetSkills,
-    "conditionsText": conditionText,
+    "conditionsText": conditionsText,
     "url": url,
   };
 
