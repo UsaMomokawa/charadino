@@ -9,7 +9,6 @@ import "./src/commands/ping.ts";
 import "./src/events/interactionCreate.ts";
 import "./src/events/mod.ts";
 import "./src/events/ready.ts";
-import "./server.ts";
 
 logger.info("Starting bot... 🚀");
 
