@@ -1,7 +1,7 @@
 {
   "tasks": {
-    "dev": "deno run --allow-read=. --allow-env --allow-net='discord.com,gateway.discord.gg,charaeno.com' --watch mod.ts",
-    "start": "deno run --allow-read=. --allow-env --allow-net='discord.com,gateway.discord.gg,charaeno.com' --watch mod.ts",
+    "dev": "deno run --allow-read=. --allow-env --allow-net='discord.com,gateway.discord.gg,charaeno.com,0.0.0.0' --watch mod.ts",
+    "start": "deno run --allow-read=. --allow-env --allow-net='discord.com,gateway.discord.gg,charaeno.com,charadino.deno.dev' --watch mod.ts",
     "lint": "deno lint",
     "fmt": "deno fmt",
     "test": "deno test"
