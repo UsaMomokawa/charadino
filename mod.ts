@@ -5,6 +5,7 @@ import { logger } from "./src/utils/logger.ts";
 
 import "./src/commands/check.ts";
 import "./src/commands/mod.ts";
+import "./src/commands/ping.ts";
 import "./src/events/interactionCreate.ts";
 import "./src/events/mod.ts";
 import "./src/events/ready.ts";
