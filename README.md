@@ -5,7 +5,7 @@ Charaeno + Discord bot + Deno
 [Charaeno](https://charaeno.com/) のキャラクターシートの技能値をチェックする
 Discord bot です。
 
-### 使い方
+## 使い方
 
 1. [botを導入する](https://discord.com/api/oauth2/authorize?client_id=1129353036876230698&permissions=2048&scope=bot%20applications.commands)
    - SCOPES: `bot`, `applications.commands`
@@ -18,20 +18,20 @@ Discord bot です。
 
 ![/checkが返す結果](./docs/check.png)
 
-### 開発
+## 開発
 
 ```shell
 $ cp .env.example .env
 $ deno task dev
 ```
 
-### 仕組み
+## 仕組み
 
 Deno で実装しています。
 
 Discord のスラッシュコマンドをトリガに、Charaeno
 APIを叩いてキャラクターシートの情報を取得します。条件をもとに技能値を検査して、結果を返します。
 
-### モチベーション
+## モチベーション
 
 クトゥルフ神話TRPGを遊ぶときに、意図せずキャラクターの技能値を振り忘れてしまうことがありました。キャラクターシートを隅々まで確認するのは大変なので、キャラクターの技能値の振り忘れをなくす仕組みを作りたいと考えました。
