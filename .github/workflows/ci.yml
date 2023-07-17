@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v3
-      - name: Setup
+      - name: Set up Deno
         uses: denoland/setup-deno@v1
         with:
           deno-version: vx.x.x
