@@ -7,11 +7,11 @@ import {
   Intents,
 } from "./deps.ts";
 import type { Command } from "./src/types/commands.ts";
-import { ENV } from "./secret.ts";
+import { config } from "./config.ts";
 import { events } from "./src/events/mod.ts";
 
 const bot = createBot({
-  token: ENV["DISCORD_BOT_TOKEN"],
+  token: config.DISCORD_BOT_TOKEN,
   intents: Intents.GuildMessages | Intents.MessageContent,
   events: events,
 });
