@@ -7,9 +7,7 @@ Discord bot です。
 
 ## 使い方
 
-1. [botを導入する](https://discord.com/api/oauth2/authorize?client_id=1129353036876230698&permissions=2048&scope=bot%20applications.commands)
-   - SCOPES: `bot`, `applications.commands`
-   - BOT PERMISSIONS: `Send Messages`
+1. Discord サーバーに bot を導入する
 2. `/check`コマンドを実行する
    - 条件:
      技能値の条件を不等号で指定します。カンマ区切りで複数条件を指定できます。
@@ -20,8 +18,12 @@ Discord bot です。
 
 ## 開発
 
+- Discord botを作成する
+  - SCOPES: `bot`, `applications.commands`
+  - BOT PERMISSIONS: `Send Messages`
+
 ```shell
-$ cp .env.example .env
+$ cp .env.example .env # .env に Discord bot token を設定する
 $ deno task dev
 ```
 
